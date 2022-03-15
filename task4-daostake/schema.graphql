@@ -1,0 +1,42 @@
+type StakeEntity @entity {
+  id: ID!
+  altQuantity: BigInt!
+  initiationTimestamp: BigInt! # uint256
+  durationTimestamp: BigInt! # uint256
+  rewardAmount: BigInt! # uint256
+  staker: Bytes!
+  phnxContractAddress: Bytes!
+  portalAddress: Bytes!
+}
+
+type UnstakeEntity @entity {
+  id: ID!
+  staker: Bytes!
+  stakedToken: Bytes!
+  portalAddress: Bytes!
+  altQuantity: BigInt!
+  durationTimestamp: BigInt! # uint256
+}
+
+type User @entity {
+  id: ID!
+  stakedAmount: BigInt! # uint256
+  transactions: [Transaction!]! @derivedfrom(field: "user")
+}
+
+type Transaction @entity {
+  id: ID!
+  type: String!
+  amount: BigInt! # uint256
+  timestamp: BigInt! # uint256
+  txHash: String!
+  blockNumber: BigInt! # uint256
+  user: User!
+}
+
+type Contract @entity {
+  id: ID!
+  stakedAmount: BigInt! # uint256
+  totalReward: BigInt! # uint256
+}
+
